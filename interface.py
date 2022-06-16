@@ -1,6 +1,5 @@
-from mimetypes import init
 from tkinter import *
-from grapher import graph
+from functions.grapher import graph
 
 from functions import Rational, Irrational, Polinomical
 

@@ -1,5 +1,5 @@
 from tkinter import *
-from . import grapher as g
+from .grapher import graph
 
 class Rational:
     def __init__(self, root):
@@ -34,6 +34,6 @@ class Rational:
         function.place(x=150, y=340)
 
         graphBtn = Button(root)
-        graphBtn.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=lambda:g.graph(value.get()))
+        graphBtn.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=lambda:graph(value.get()))
         graphBtn.config(text='Graph')
         graphBtn.place(x=450, y=390)
