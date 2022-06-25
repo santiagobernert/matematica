@@ -1,7 +1,6 @@
 from tkinter import *
 from grapher import graph
-from PIL import ImageTk, Image
-
+from info import getFunctionInfo
 #from functions import Rational, Irrational, Polinomical
 
 class Menu:
@@ -39,19 +38,37 @@ class Menu:
         entry.place(x=150, y=145)
 
         def changeText():
-            function.set('f(x) = ' + entry.get())
+            entry_text = entry.get()
+            if ')/(' in entry_text:
+                entry_text = entry_text.replace('/', ' / ')
+            if '+' in entry_text:
+                entry_text = entry_text.replace('+', ' + ')
+            if '-' in entry_text:
+                entry_text = entry_text.replace('-', ' - ')
+            function.set('f(x) = ' + entry_text)
 
         def write(operation):
             txt = entry.get()
             new_txt = txt + operation
-            entry.set(new_txt)
+            entry.insert(-1, new_txt)
+
+        def info():
+            function_domain, function_range, function_y_intercept, function_zero, function_positivity, function_negativity, function_vertical_asintote, function_horizontal_asintote = getFunctionInfo(function.get()[7:])
+            domainLabel.set(f'{domainLabel.cget("text")}: {function_domain}')
+            rangeLabel.set(f'{rangeLabel.cget("text")}: {function_range}')
+            yInterceptLabel.set(f'{yInterceptLabel.cget("text")}: {function_y_intercept}')
+            zeroLabel.set(f'{zeroLabel.cget("text")}: {function_zero}')
+            positivityLabel.set(f'{positivityLabel.cget("text")}: {function_positivity}')
+            negativityLabel.set(f'{negativityLabel.cget("text")}: {function_negativity}')
+            verticalAsintoteLabel.set(f'{verticalAsintoteLabel.cget("text")}: {function_vertical_asintote}')
+            horizontalAsintoteLabel.set(f'{horizontalAsintoteLabel.cget("text")}: {function_horizontal_asintote}')
 
         change = Button(root)
         change.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=changeText)
         change.config(text='Change')
         change.place(x=650, y=145)
 
-        function = StringVar(value=f'f(x) = {entry.get()}')
+        function = StringVar(value=f'f(x) = ')
 
         functionLabel = Label(root)
         functionLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
@@ -59,36 +76,94 @@ class Menu:
         functionLabel.place(x=85, y=180)
 
         graphBtn = Button(root)
-        graphBtn.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=lambda:graph(entry.get()))
+        graphBtn.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=lambda:graph(function.get()[7:]))
         graphBtn.config(text='Graph')
         graphBtn.place(x=85, y=240)
 
+        getInfoBtn = Button(root)
+        getInfoBtn.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=info)
+        getInfoBtn.config(text='Info')
+        getInfoBtn.place(x=160, y=240)
+
         #SYMBOL BUTTONS
-        square_root = PhotoImage(file='imgs/Square-Root.png' )
-        n_root = PhotoImage(file='imgs/n-root.png')
-        ration = ImageTk.PhotoImage(Image.open('imgs/rational.jpg'))
-        power = ImageTk.PhotoImage(Image.open('imgs/power.jpg'))
 
         squareRootBtn = Button(root)
-        squareRootBtn.config(width=31, height=31, bg='#f2f2f2', fg='#121212', justify=CENTER, command=lambda:write('**(0.5)'))
-        squareRootBtn.config(image=square_root)
-        squareRootBtn.place(x=285, y=400)
+        squareRootBtn.config(font=('Cambira Math', 24), justify=LEFT, command=lambda:write('**(0.5)'))
+        squareRootBtn.config(text='√')
+        squareRootBtn.place(x=250, y=290)
 
         nRootBtn = Button(root)
-        nRootBtn.config(width=31, height=31, bg='#f2f2f2', fg='#121212', justify=CENTER, command=lambda:write('**(0.)'))
-        nRootBtn.config(image=n_root)
-        nRootBtn.place(x=350, y=400)
+        nRootBtn.config(font=('Cambira Math', 24), justify=CENTER, command=lambda:write('**(0.)'))
+        nRootBtn.config(text='ⁿ√')
+        nRootBtn.place(x=320, y=290)
 
         rationBtn = Button(root)
-        rationBtn.config(width=31, height=31, bg='#f2f2f2', fg='#121212', justify=CENTER, command=lambda:write('() / ()'))
-        rationBtn.config(image=ration)
-        rationBtn.place(x=410, y=400)
+        rationBtn.config(font=('Cambira Math', 24), justify=CENTER, command=lambda:write('() / ()'))
+        rationBtn.config(text='⎯⎯⎯')
+        rationBtn.place(x=410, y=290)
 
         powerBtn = Button(root)
-        powerBtn.config(width=31, height=31, bg='#f2f2f2', fg='#121212', justify=CENTER, command=lambda:write('**()'))
-        powerBtn.config(image=power)
-        powerBtn.place(x=475, y=400)
+        powerBtn.config(font=('Cambira Math', 24), justify=CENTER, command=lambda:write('**()'))
+        powerBtn.config(text='xⁿ')
+        powerBtn.place(x=500, y=290)
 
+        #INFO LABELS
+
+        domain = StringVar(value=f'Domain = ')
+
+        domainLabel = Label(root)
+        domainLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        domainLabel.config(textvariable=domain)
+        domainLabel.place(x=85, y=390)
+
+        range = StringVar(value=f'Range = ')
+
+        rangeLabel = Label(root)
+        rangeLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        rangeLabel.config(textvariable=range)
+        rangeLabel.place(x=310, y=390)
+
+        yIntercept = StringVar(value=f'Y Intercept = ')
+
+        yInterceptLabel = Label(root)
+        yInterceptLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        yInterceptLabel.config(textvariable=yIntercept)
+        yInterceptLabel.place(x=505, y=390)
+
+        zero = StringVar(value=f'Zero = ')
+
+        zeroLabel = Label(root)
+        zeroLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        zeroLabel.config(textvariable=zero)
+        zeroLabel.place(x=85, y=445)
+
+        positivity = StringVar(value=f'Positivity = ')
+
+        positivityLabel = Label(root)
+        positivityLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        positivityLabel.config(textvariable=positivity)
+        positivityLabel.place(x=310, y=445)
+
+        negativity = StringVar(value=f'Negativity = ')
+
+        negativityLabel = Label(root)
+        negativityLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        negativityLabel.config(textvariable=negativity)
+        negativityLabel.place(x=505, y=445)
+
+        verticalAsintote = StringVar(value=f'Vert. Asintote = ')
+
+        verticalAsintoteLabel = Label(root)
+        verticalAsintoteLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        verticalAsintoteLabel.config(textvariable=verticalAsintote)
+        verticalAsintoteLabel.place(x=85, y=500)
+
+        horizontalAsintote = StringVar(value=f'Hor. Asintote = ')
+
+        horizontalAsintoteLabel = Label(root)
+        horizontalAsintoteLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        horizontalAsintoteLabel.config(textvariable=horizontalAsintote)
+        horizontalAsintoteLabel.place(x=310, y=500)
 
 
 
