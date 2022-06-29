@@ -48,25 +48,45 @@ class Menu:
             function.set('f(x) = ' + entry_text)
 
         def write(operation):
-            txt = entry.get()
-            new_txt = txt + operation
-            entry.insert(-1, new_txt)
+            entry.insert(-1, operation)
 
         def info():
-            function_domain, function_range, function_y_intercept, function_zero, function_positivity, function_negativity, function_vertical_asintote, function_horizontal_asintote = getFunctionInfo(function.get()[7:])
-            domainLabel.set(f'{domainLabel.cget("text")}: {function_domain}')
-            rangeLabel.set(f'{rangeLabel.cget("text")}: {function_range}')
-            yInterceptLabel.set(f'{yInterceptLabel.cget("text")}: {function_y_intercept}')
-            zeroLabel.set(f'{zeroLabel.cget("text")}: {function_zero}')
-            positivityLabel.set(f'{positivityLabel.cget("text")}: {function_positivity}')
-            negativityLabel.set(f'{negativityLabel.cget("text")}: {function_negativity}')
-            verticalAsintoteLabel.set(f'{verticalAsintoteLabel.cget("text")}: {function_vertical_asintote}')
-            horizontalAsintoteLabel.set(f'{horizontalAsintoteLabel.cget("text")}: {function_horizontal_asintote}')
+            function_domain, function_rangee, function_y_intercept, function_zero, function_positivity, function_negativity, function_vertical_asintote, function_horizontal_asintote = getFunctionInfo(function.get()[7:])
+            domain.set(f'{domainLabel.cget("text")} {function_domain}')
+            rangee.set(f'{rangeeLabel.cget("text")} {function_rangee}')
+            yIntercept.set(f'{yInterceptLabel.cget("text")} {function_y_intercept}')
+            zero.set(f'{zeroLabel.cget("text")} {function_zero}')
+            positivity.set(f'{positivityLabel.cget("text")} {function_positivity}')
+            negativity.set(f'{negativityLabel.cget("text")} {function_negativity}')
+            verticalAsintote.set(f'{verticalAsintoteLabel.cget("text")} {function_vertical_asintote}')
+            horizontalAsintote.set(f'{horizontalAsintoteLabel.cget("text")} {function_horizontal_asintote}')
+
+        def selectPoint():
+            print('select point')
+            menuPunto = Toplevel()
+            menuPunto.title("Select a point")
+            menuPunto.geometry('300x200')
+            menuPunto.resizable(width=False, height=False)
+
+            labelSelectPoint = Label(menuPunto)
+            labelSelectPoint.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+            labelSelectPoint.config(text='Select point in x:')
+            labelSelectPoint.place(x=85, y=50)
+
+            entryPoint = Entry(menuPunto)
+            entryPoint.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), width=40)
+            entryPoint.place(x=85, y=105)
+
 
         change = Button(root)
         change.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=changeText)
         change.config(text='Change')
         change.place(x=650, y=145)
+
+        selectPoint = Button(root)
+        selectPoint.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=lambda: selectPoint)
+        selectPoint.config(text='Select Point')
+        selectPoint.place(x=650, y=190)
 
         function = StringVar(value=f'f(x) = ')
 
@@ -116,12 +136,12 @@ class Menu:
         domainLabel.config(textvariable=domain)
         domainLabel.place(x=85, y=390)
 
-        range = StringVar(value=f'Range = ')
+        rangee = StringVar(value=f'Range = ')
 
-        rangeLabel = Label(root)
-        rangeLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        rangeLabel.config(textvariable=range)
-        rangeLabel.place(x=310, y=390)
+        rangeeLabel = Label(root)
+        rangeeLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
+        rangeeLabel.config(textvariable=rangee)
+        rangeeLabel.place(x=310, y=390)
 
         yIntercept = StringVar(value=f'Y Intercept = ')
 
@@ -164,6 +184,7 @@ class Menu:
         horizontalAsintoteLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
         horizontalAsintoteLabel.config(textvariable=horizontalAsintote)
         horizontalAsintoteLabel.place(x=310, y=500)
+
 
 
 

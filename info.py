@@ -1,11 +1,10 @@
-from sympy import *
 
 def getFunctionType(function):
     if ') / (' in function:
         function_type = 'Rational'
         functions = function.split(' / ')
         return function_type, functions
-    elif 'x**(0,' in function or 'x**0,' in function:
+    elif '**(0' in function or '**0' in function:
         function_type = 'Irrational'
         return function_type, function
     else:
@@ -34,22 +33,22 @@ def getDomain(function_type, function):
             pass
         
 def getRange(function_type, function):
-    pass
+    return '10'
 
 def getYIntercept(function_type, function):
-    pass
+    return '10'
 
 def getZero(function_type, function):
-    pass
+    return '10'
 
 def getPositivity(function_type, function):
-    pass
+    return '10'
 
 def getNegativity(function_type, function):
-    pass
+    return '10'
 
 def getVerticalAsintote(function_type, function):
-    pass
+    return '10'
 
 def getHorizontalAsintote(function_type, function):
-    pass
+    return '10'

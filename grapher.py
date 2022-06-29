@@ -21,12 +21,8 @@ def graph(f):
     #DEFINING Y AXIS RANGE
     plt.ylim([-100, 100])
     #SHOW AXES
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    ax.spines['left'].set_position('center')
-    ax.spines['bottom'].set_position('zero')
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
+    plt.axhline(0, color='black')
+    plt.axvline(0, color='black')
     #SHOW LINES IN THE GRAPH
     plt.grid()
     if rational:
