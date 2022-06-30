@@ -31,3 +31,7 @@ def graph(f):
     else:
         plt.plot(x, y)
     plt.show()
+
+
+def selectPoint():
+    pass
