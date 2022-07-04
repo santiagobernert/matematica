@@ -1,6 +1,5 @@
 from tkinter import *
-from grapher import graph, selectPoint
-from info import getFunctionInfo
+from grapher import graph, evalInPoint
 #from functions import Rational, Irrational, Polinomical
 
 class Menu:
@@ -51,16 +50,6 @@ class Menu:
         def write(operation):
             entry.insert(-1, operation)
 
-        def info():
-            function_domain, function_rangee, function_y_intercept, function_zero, function_positivity, function_negativity, function_vertical_asintote, function_horizontal_asintote = getFunctionInfo(function.get()[7:])
-            domain.set(f'{domainLabel.cget("text")} {function_domain}')
-            rangee.set(f'{rangeeLabel.cget("text")} {function_rangee}')
-            yIntercept.set(f'{yInterceptLabel.cget("text")} {function_y_intercept}')
-            zero.set(f'{zeroLabel.cget("text")} {function_zero}')
-            positivity.set(f'{positivityLabel.cget("text")} {function_positivity}')
-            negativity.set(f'{negativityLabel.cget("text")} {function_negativity}')
-            verticalAsintote.set(f'{verticalAsintoteLabel.cget("text")} {function_vertical_asintote}')
-            horizontalAsintote.set(f'{horizontalAsintoteLabel.cget("text")} {function_horizontal_asintote}')
 
 
         change = Button(root)
@@ -91,11 +80,6 @@ class Menu:
         graphBtn.config(text='Graph')
         graphBtn.place(x=85, y=240)
 
-        getInfoBtn = Button(root)
-        getInfoBtn.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=info)
-        getInfoBtn.config(text='Info')
-        getInfoBtn.place(x=85, y=300)
-
         #SYMBOL BUTTONS
 
         squareRootBtn = Button(root)
@@ -118,65 +102,10 @@ class Menu:
         powerBtn.config(text='xⁿ')
         powerBtn.place(x=500, y=240)
 
-        #INFO LABELS
-
-        domain = StringVar(value=f'Domain = ')
-
-        domainLabel = Label(root)
-        domainLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        domainLabel.config(textvariable=domain)
-        domainLabel.place(x=85, y=480)
-
-        rangee = StringVar(value=f'Range = ')
-
-        rangeeLabel = Label(root)
-        rangeeLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        rangeeLabel.config(textvariable=rangee)
-        rangeeLabel.place(x=350, y=480)
-
-        yIntercept = StringVar(value=f'Y Intercept = ')
-
-        yInterceptLabel = Label(root)
-        yInterceptLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        yInterceptLabel.config(textvariable=yIntercept)
-        yInterceptLabel.place(x=615, y=480)
-
-        zero = StringVar(value=f'Zero = ')
-
-        zeroLabel = Label(root)
-        zeroLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        zeroLabel.config(textvariable=zero)
-        zeroLabel.place(x=85, y=540)
-
-        positivity = StringVar(value=f'Positivity = ')
-
-        positivityLabel = Label(root)
-        positivityLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        positivityLabel.config(textvariable=positivity)
-        positivityLabel.place(x=350, y=540)
-
-        negativity = StringVar(value=f'Negativity = ')
-
-        negativityLabel = Label(root)
-        negativityLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        negativityLabel.config(textvariable=negativity)
-        negativityLabel.place(x=615, y=540)
-
-        verticalAsintote = StringVar(value=f'Vert. Asintote = ')
-
-        verticalAsintoteLabel = Label(root)
-        verticalAsintoteLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        verticalAsintoteLabel.config(textvariable=verticalAsintote)
-        verticalAsintoteLabel.place(x=85, y=600)
-
-        horizontalAsintote = StringVar(value=f'Hor. Asintote = ')
-
-        horizontalAsintoteLabel = Label(root)
-        horizontalAsintoteLabel.config(bg='#121212', fg='#f2f2f2', justify=LEFT, font=('Helvetica', '16'))
-        horizontalAsintoteLabel.config(textvariable=horizontalAsintote)
-        horizontalAsintoteLabel.place(x=350, y=600)
-
-
+        def selectPointInX():
+            point = entryPoint.get()
+            funcInPoint.set(f'f({point}) = {evalInPoint(point, function.get()[7:])}')
+            graph(function.get()[7:], int(entryPoint.get()))
 
         labelSelectPoint = Label(root)
         labelSelectPoint.config(bg='#121212', fg='#fafafa', justify=LEFT, font=('Helvetica', '16'))
@@ -188,9 +117,16 @@ class Menu:
         entryPoint.place(x=1050, y=185)
 
         selectPoint = Button(root)
-        selectPoint.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=selectPoint)
+        selectPoint.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=selectPointInX)
         selectPoint.config(text='Select Point')
         selectPoint.place(x=1020, y=230)
+
+        funcInPoint = StringVar(value='')
+
+        labelSelectPoint = Label(root)
+        labelSelectPoint.config(bg='#121212', fg='#fafafa', justify=LEFT, font=('Helvetica', '16'))
+        labelSelectPoint.config(textvariable=funcInPoint)
+        labelSelectPoint.place(x=1000, y=290)
 
 
 if __name__ == "__main__":

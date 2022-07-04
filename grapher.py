@@ -2,22 +2,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 from info import getFunctionType
 
-def graph(f):
-    rational = False
+def graph(function, pointInX=0):
     #GETTING FUNCTION TYPE
-    function_type, function = getFunctionType(f)
+    function_type = getFunctionType(function)
     #DEFINING X AXIS RANGE
     x = np.arange(-11, 11, 1)
     #EVALUATING THE FUNCTION
-    #checking if it is rational (because when it's rational we have to hraph two functions)
-    if function_type == 'Rational':
-        rational = True
-        y1 = eval(function[0])
-        y2 = eval(function[1])
-    else:
-        y = eval(function)
+    y = eval(function)
+    pointInY = evalInPoint(str(pointInX), function)
     #DEFINING THE GRAPH'S TITLE
-    plt.title(f'{function_type}: {f}')
+    plt.title(f'{function_type}: {function}')
     #DEFINING Y AXIS RANGE
     plt.ylim([-100, 100])
     #SHOW AXES
@@ -25,13 +19,15 @@ def graph(f):
     plt.axvline(0, color='black')
     #SHOW LINES IN THE GRAPH
     plt.grid()
-    if rational:
-        plt.plot(x, y1)
-        plt.plot(x, y2)
-    else:
-        plt.plot(x, y)
+    plt.plot(np.where(x == pointInX-11), [pointInY], marker='.', markersize=10, markeredgecolor="red", markerfacecolor="red")
+    plt.plot(x, y)
     plt.show()
 
-
-def selectPoint():
-    pass
+def evalInPoint(pointInX, function):
+    f_type = getFunctionType(function)
+    if f_type == 'Irrational' and int(pointInX) < 0:
+        pointInY = 'Imaginary number'
+    else:
+        pointInY = eval(function.replace('x', pointInX))
+    print(pointInX, pointInY)
+    return pointInY
