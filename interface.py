@@ -1,5 +1,6 @@
 from tkinter import *
 from grapher import graph, evalInPoint
+from info import getFunctionLimits
 #from functions import Rational, Irrational, Polinomical
 
 class Menu:
@@ -127,6 +128,23 @@ class Menu:
         labelSelectPoint.config(bg='#121212', fg='#fafafa', justify=LEFT, font=('Helvetica', '16'))
         labelSelectPoint.config(textvariable=funcInPoint)
         labelSelectPoint.place(x=1000, y=290)
+
+
+        def getLimits():
+            point = entryPoint.get()
+            limits.set(getFunctionLimits(function.get()[7:], point))
+
+        getLimit = Button(root)
+        getLimit.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=getLimits)
+        getLimit.config(text='Get function limits')
+        getLimit.place(x=250, y=330)
+
+        limits = StringVar(value='')
+
+        labelLimits = Label(root)
+        labelLimits.config(bg='#121212', fg='#fafafa', justify=LEFT, font=('Helvetica', '16'))
+        labelLimits.config(textvariable=limits)
+        labelLimits.place(x=250, y=400)
 
 
 if __name__ == "__main__":
