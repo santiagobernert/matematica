@@ -1,8 +1,5 @@
 from tkinter import *
 from grapher import graph, evalInPoint
-
-from limit import getLimitByLeft, getLimitByRight
-
 from info import getFunctionLimits
 
 #from functions import Rational, Irrational, Polinomical
