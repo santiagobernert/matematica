@@ -144,17 +144,6 @@ class Menu:
         labelPointSelected.config(textvariable=funcInPoint)
         labelPointSelected.place(x=1000, y=290)
 
-        #Button to get the limit by left
-        leftLimit = Button(root)
-        leftLimit.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=getLimitByLeft)
-        leftLimit.config(text='Get limit by left')
-        leftLimit.place(x=900, y=330)
-
-        #Button to get the limit by right
-        rightLimit = Button(root)
-        rightLimit.config(bg='#f2f2f2', fg='#121212', justify=LEFT, font=('Helvetica', '16'), command=getLimitByRight)
-        rightLimit.config(text='Get limit by right')
-        rightLimit.place(x=1100, y=330)
 
         #Label to show the limits
 
